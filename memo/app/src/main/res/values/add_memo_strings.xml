@@ -1,0 +1,4 @@
+<resources>
+    <string name="data_title_hint">请输入标题</string>
+    <string name="date_content_hint">请输入内容</string>
+</resources>
