@@ -13,10 +13,13 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import hanz.com.mymemo.DB.DBHelper;
+import hanz.com.mymemo.DB.GetDataArrayList;
 import hanz.com.mymemo.MainActivity;
 import hanz.com.mymemo.R;
 
 public class AddActivity extends AppCompatActivity {
+
+    public static final String action = "mainActivity_action";
 
     private EditText data_title;
     private EditText data_content;
@@ -79,9 +82,8 @@ public class AddActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "添加成功", Toast.LENGTH_SHORT).show();
 
-//        Intent intent = new Intent();
-//        intent.setClass(AddActivity.this, MainActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(action);
+        sendBroadcast(intent);
 
         finish();
     }
