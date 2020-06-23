@@ -2,16 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/data_title"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="备忘录"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        />
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+
+        <EditText
+            android:id="@+id/data_title"
+            android:layout_width="346dp"
+            android:layout_height="70dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="70dp"
+            android:id="@+id/save_btn"
+            android:src="@mipmap/save_icon"
+            android:background="@null"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,14 +41,12 @@
             android:id="@+id/data_create_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="10：25" />
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/data_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="正文内容。"
             android:inputType="textMultiLine"
             android:gravity="top" />
 

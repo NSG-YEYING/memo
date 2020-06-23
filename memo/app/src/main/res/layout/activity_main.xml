@@ -12,7 +12,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="备忘录"
+            android:text="@string/memo"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="30sp"
@@ -23,7 +23,7 @@
         android:layout_height="50dp"
         android:id="@+id/add_btn"
         android:src="@mipmap/add_btn"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="right|center"/>
 
     </RelativeLayout>
@@ -33,23 +33,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <SearchView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/searchView" />-->
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/search_icon"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
 
         <EditText
+            android:id="@+id/serch_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/serch_data"
             android:layout_gravity="center_horizontal"
-            android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            android:imeOptions="actionSearch"
+            android:hint="@string/key_word"
+            android:paddingLeft="6dp"/>
 
     </LinearLayout>
 
@@ -58,8 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
-            android:dividerHeight="18dp"
-           />
-
+            android:dividerHeight="18dp" />
 
 </LinearLayout>

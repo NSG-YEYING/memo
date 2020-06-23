@@ -140,7 +140,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="H:\Android\save.svg" />
+                                                <entry key="imagePath" value="H:\Android\memo.svg" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -173,9 +173,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="iconShape" value="CIRCLE" />
-                                      <entry key="imageAsset" value="H:\Android\save.svg" />
-                                      <entry key="outputName" value="save_icon" />
+                                      <entry key="imageAsset" value="H:\Android\memo.svg" />
+                                      <entry key="outputName" value="memo_logo" />
                                     </map>
                                   </option>
                                 </PersistentState>

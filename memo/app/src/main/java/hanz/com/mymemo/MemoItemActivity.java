@@ -41,7 +41,8 @@ public class MemoItemActivity extends AppCompatActivity {
         data_create_time.setText(time);
 
 //       init style
-
+        data_title.setSelection(title.length());
+        data_content.setSelection(content.length());
 
     }
 }
