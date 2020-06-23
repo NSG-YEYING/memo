@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android-memo.iml" filepath="$PROJECT_DIR$/.idea/modules/Android-memo.iml" group="memo" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="memo/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/memo.iml" filepath="$PROJECT_DIR$/.idea/modules/memo.iml" group="memo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/memo-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/memo-app.iml" group="memo/app" />
     </modules>
   </component>
 </project>

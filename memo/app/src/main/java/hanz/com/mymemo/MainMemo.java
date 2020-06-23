@@ -3,10 +3,8 @@ package hanz.com.mymemo;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by lenovo on 2020/6/18.
- */
 public class MainMemo implements Serializable {
+
     private String dataTitle;
     private String dataContent;
     private Date dataCreateTime;
