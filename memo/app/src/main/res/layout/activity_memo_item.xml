@@ -22,9 +22,9 @@
             android:textStyle="bold" />
 
         <ImageButton
+            android:id="@+id/save_btn"
             android:layout_width="60dp"
             android:layout_height="70dp"
-            android:id="@+id/save_btn"
             android:src="@mipmap/save_icon"
             android:background="@null"
             android:layout_gravity="center_vertical"/>

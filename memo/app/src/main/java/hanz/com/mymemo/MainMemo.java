@@ -8,6 +8,15 @@ public class MainMemo implements Serializable {
     private String dataTitle;
     private String dataContent;
     private Date dataCreateTime;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDataTitle() {
         return dataTitle;

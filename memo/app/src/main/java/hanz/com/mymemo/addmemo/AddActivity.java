@@ -38,7 +38,7 @@ public class AddActivity extends AppCompatActivity {
         data_title=(EditText)findViewById(R.id.data_title);
         data_content=(EditText)findViewById(R.id.data_content);
         complete_btn=(ImageButton)findViewById(R.id.complete_btn);
-
+//        光标首行
         data_content.setSelection(0);
 
         complete_btn.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +57,9 @@ public class AddActivity extends AppCompatActivity {
         String title =  data_title.getText().toString().trim();
         String content =  data_content.getText().toString().trim();
 
+//        标题内容都为空
         if (title.equals("") && content.equals("")) {
-            Toast.makeText(getApplicationContext(), "内容为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "标题与内容为空", Toast.LENGTH_SHORT).show();
 
             return;
         }

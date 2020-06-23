@@ -1,5 +1,7 @@
 package hanz.com.mymemo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import hanz.com.mymemo.DB.GetDataArrayList;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<MainMemo> memoResList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        memo_list = (ListView)findViewById(R.id.memo_list);
-        add_btn = (ImageView)findViewById(R.id.add_btn) ;
+        memo_list = (ListView) findViewById(R.id.memo_list);
+        add_btn = (ImageView) findViewById(R.id.add_btn);
         search_data = (EditText) findViewById(R.id.serch_data);
 
 //     获取数据
-        datas =  new GetDataArrayList().getData(this);
+        datas = new GetDataArrayList().getData(this);
 
         MainAdapter adapter = new MainAdapter(this, datas);
         memo_list.setAdapter(adapter);
@@ -58,29 +61,29 @@ public class MainActivity extends AppCompatActivity {
 
 //        search
         search_data.addTextChangedListener(new TextWatcher() {
-//            输入文本之前的状态
+            //            输入文本之前的状态
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
-//            输入文本中的状态
+            //            输入文本中的状态
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
-//            输入文本后的状态
+            //            输入文本后的状态
             @Override
             public void afterTextChanged(Editable s) {
-                memoResList = getSearchMemoByKey(s.toString());
+                memoResList = new GetDataArrayList().getSearchMemoByKey(s.toString());
 
                 MainAdapter adapter = new MainAdapter(MainActivity.this, memoResList);
                 memo_list.setAdapter(adapter);
             }
         });
 
-//        list view item click
+//        list item click
         memo_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -95,27 +98,46 @@ public class MainActivity extends AppCompatActivity {
 //              time
                 String time = new MainAdapter().formatDate(memo.getDataCreateTime());
                 intent.putExtra("time", time);
+//                table id
+                intent.putExtra("table_id", memo.getId());
 
                 startActivity(intent);
             }
         });
-    }
 
-    private ArrayList<MainMemo> getSearchMemoByKey(String key) {
-//                Log.d("afterTextChanged: ", key);
-        ArrayList<MainMemo> list = new ArrayList<MainMemo>();
+//        list item long click
+        memo_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
 
-        for (int i = 0; i < datas.size(); i ++) {
-            MainMemo memo = (MainMemo) datas.get(i);
-            String title = memo.getDataTitle();
-            String content = memo.getDataContent();
-            String time =  new MainAdapter().formatDate(memo.getDataCreateTime());
+//              获取点击的 item 信息
+                MainMemo memo = (MainMemo) datas.get((int) id);
+                final int table_id = memo.getId();
+//                dialog
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("注意");
+                dialog.setMessage("确定删除此条记录？");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new GetDataArrayList().deleteData(MainActivity.this, table_id);
 
-            if (time.contains(key) || title.contains(key) || content.contains(key)){
-                list.add(memo);
+                        Toast.makeText(getApplicationContext(), "删除成功！", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
+
+                return true;
             }
-        }
-
-        return list;
+        });
     }
+
+
 }
