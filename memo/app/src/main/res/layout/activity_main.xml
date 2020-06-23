@@ -54,9 +54,12 @@
     </LinearLayout>
 
         <ListView
+            android:id="@+id/memo_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/memo_datas"/>
+            android:divider="@null"
+            android:dividerHeight="18dp"
+           />
 
 
 </LinearLayout>

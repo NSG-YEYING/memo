@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class GetDataArrayList {
         }
 
         cursor.close();
+
+        Collections.reverse(datas);
 
         return datas;
     }

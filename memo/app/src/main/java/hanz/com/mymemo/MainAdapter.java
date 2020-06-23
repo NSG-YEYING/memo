@@ -14,13 +14,13 @@ import java.util.List;
 
 public class MainAdapter extends BaseAdapter {
     //数据集合
-    private List<MainMemo> datas=null;
-    private Context context=null;
+    private List<MainMemo> datas = null;
+    private Context context = null;
     public MainAdapter(){}
     public MainAdapter(Context context,List<MainMemo> datas){
         //初始化数据
-        this.context=context;
-        this.datas=datas;
+        this.context = context;
+        this.datas = datas;
     }
     @Override
     public int getCount() {
@@ -36,11 +36,11 @@ public class MainAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
+        ViewHolder viewHolder = null;
             if (convertView == null) {
                 viewHolder = new ViewHolder();
-                convertView =LayoutInflater.from(context).inflate(
-                        R.layout.memo_item, null);
+                convertView = LayoutInflater.from(context).inflate(
+                        R.layout.memo_item_show, null);
                 //控件组装
                viewHolder.dataTitle = (TextView) convertView.findViewById(R.id.data_title);
                 viewHolder.dataContent = (TextView)convertView.findViewById(R.id.data_content);
@@ -66,8 +66,7 @@ public class MainAdapter extends BaseAdapter {
         return convertView ;
     }
 
-    private String formatDate(Date date){
-                        Log.d("ADAPTER", "date -- " + date);
+    public String formatDate(Date date){
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dataCreateTimeStr = dateFormat.format(date);

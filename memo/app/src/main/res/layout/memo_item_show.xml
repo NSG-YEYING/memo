@@ -3,38 +3,41 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/data_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="我的备忘1111"
-        android:id="@+id/data_title"
+        android:text="备忘录"
+        android:paddingStart="12dp"
         android:textColor="#000000"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp">
+
+        <TextView
+            android:id="@+id/data_create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="10：25" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10;25"
-            android:id="@+id/data_create_time" />
+            android:hint="     "/>
 
         <TextView
-            android:layout_width="10sp"
-            android:layout_height="wrap_content"
-            android:id="@+id/compoment_gap"/>
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/data_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollHorizontally="false"
             android:singleLine="true"
-            android:text="正文内容。。。。。。。。。。。。。。。。。。。。。。。。。。"
-            android:id="@+id/data_content" />
+            android:text="正文内容。" />
 
     </LinearLayout>
 
