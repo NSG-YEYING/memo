@@ -14,7 +14,7 @@ import java.util.List;
 import hanz.com.mymemo.MainAdapter;
 import hanz.com.mymemo.MainMemo;
 
-public class GetDataArrayList {
+public class HandleData {
 
     private List<MainMemo> datas;
 
@@ -31,13 +31,22 @@ public class GetDataArrayList {
         initSQL(context);
 
         datas = new ArrayList<>();
-        Cursor cursor = db.query("myTable", null,null,null,null,null,null);
-        while (cursor.moveToNext()){
+        Cursor cursor = db.query(
+                "myTable",
+                new String[]{"id", "data_title", "data_content", "data_create_time"},
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        while (cursor.moveToNext()) {
             MainMemo memo = new MainMemo();
 //            title
-            String content = cursor.getString( cursor.getColumnIndex("data_content"));
-//           content
             String title = cursor.getString(cursor.getColumnIndex("data_title"));
+//           content
+            String content = cursor.getString(cursor.getColumnIndex("data_content"));
 //            create time
             long time = cursor.getLong(cursor.getColumnIndex("data_create_time"));
 //          id
@@ -46,10 +55,14 @@ public class GetDataArrayList {
 
 //           title
             memo.setDataTitle(title);
-            if (content == null){
+            if (title == null) {
+                title = "";
+            }
+
+//          content
+            if (content == null) {
                 content = "";
             }
-//          content
             memo.setDataContent(content);
 //          time
             memo.setDataCreateTime(new Date(time));
@@ -65,10 +78,12 @@ public class GetDataArrayList {
         return datas;
     }
 
-    public void deleteData(Context context, int id){
+    public void deleteData(Context context, int id) {
         initSQL(context);
 
         db.delete("myTable", "id=?", new String[]{String.valueOf(id)});
+
+        closeSQL();
     }
 
     public void update(Context context, String newTitle, String newContent, int id) {
@@ -87,21 +102,21 @@ public class GetDataArrayList {
     }
 
     private void closeSQL() {
-        if (db != null || db.isOpen()){
+        if (db != null || db.isOpen()) {
             db.close();
         }
     }
 
-    public ArrayList<MainMemo> getSearchMemoByKey(String key) {
+    public ArrayList<MainMemo> getSearchMemoByKey(String key, List datas) {
         ArrayList<MainMemo> list = new ArrayList<MainMemo>();
 
-        for (int i = 0; i < datas.size(); i ++) {
+        for (int i = 0; i < datas.size(); i++) {
             MainMemo memo = (MainMemo) datas.get(i);
             String title = memo.getDataTitle();
             String content = memo.getDataContent();
-            String time =  new MainAdapter().formatDate(memo.getDataCreateTime());
+            String time = new MainAdapter().formatDate(memo.getDataCreateTime());
 
-            if (time.contains(key) || title.contains(key) || content.contains(key)){
+            if (time.contains(key) || title.contains(key) || content.contains(key)) {
                 list.add(memo);
             }
         }

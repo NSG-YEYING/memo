@@ -8,7 +8,7 @@ public class MainMemo implements Serializable {
     private String dataTitle;
     private String dataContent;
     private Date dataCreateTime;
-    private int id;
+    private int id; //  数据的 id
 
     public int getId() {
         return id;

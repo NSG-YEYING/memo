@@ -16,10 +16,10 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS myTable" +
-                                "(id integer primary key autoincrement," +
-                                "data_title text," +
-                                "data_content text," +
-                                "data_create_time data)";
+                "(id integer primary key autoincrement," +
+                "data_title text," +
+                "data_content text," +
+                "data_create_time data)";
 
         db.execSQL(createTableSQL);
     }

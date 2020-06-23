@@ -35,9 +35,9 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void init() {
-        data_title=(EditText)findViewById(R.id.data_title);
-        data_content=(EditText)findViewById(R.id.data_content);
-        complete_btn=(ImageButton)findViewById(R.id.complete_btn);
+        data_title = (EditText) findViewById(R.id.data_title);
+        data_content = (EditText) findViewById(R.id.data_content);
+        complete_btn = (ImageButton) findViewById(R.id.complete_btn);
 //        光标首行
         data_content.setSelection(0);
 
@@ -54,8 +54,8 @@ public class AddActivity extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        String title =  data_title.getText().toString().trim();
-        String content =  data_content.getText().toString().trim();
+        String title = data_title.getText().toString().trim();
+        String content = data_content.getText().toString().trim();
 
 //        标题内容都为空
         if (title.equals("") && content.equals("")) {
@@ -66,11 +66,11 @@ public class AddActivity extends AppCompatActivity {
 
         values.put(
                 "data_title",
-                 title
+                title
         );
         values.put(
                 "data_content",
-               content
+                content
         );
         values.put(
                 "data_create_time",
@@ -88,7 +88,7 @@ public class AddActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (db != null || db.isOpen()){
+        if (db != null || db.isOpen()) {
             db.close();
         }
     }

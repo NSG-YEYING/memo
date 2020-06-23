@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import hanz.com.mymemo.DB.GetDataArrayList;
+import hanz.com.mymemo.DB.HandleData;
 
 public class MemoItemActivity extends AppCompatActivity {
 
@@ -22,8 +22,8 @@ public class MemoItemActivity extends AppCompatActivity {
     }
 
     private EditText
-                data_title,
-                data_content;
+            data_title,
+            data_content;
     private TextView data_create_time;
     private ImageButton save_btn;
 
@@ -66,12 +66,12 @@ public class MemoItemActivity extends AppCompatActivity {
                 }
 
 //                标题、内容 都未改变
-                if (!newTitle.equals(title) && !newContent.equals(content)){
+                if (!newTitle.equals(title) && !newContent.equals(content)) {
                     finish();
                     return;
                 }
 
-                new GetDataArrayList().update(MemoItemActivity.this, newTitle, newContent, table_id);
+                new HandleData().update(MemoItemActivity.this, newTitle, newContent, table_id);
 
                 Toast.makeText(getApplicationContext(), "信息已更新", Toast.LENGTH_SHORT).show();
 

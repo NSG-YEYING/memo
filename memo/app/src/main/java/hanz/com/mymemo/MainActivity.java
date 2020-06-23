@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import hanz.com.mymemo.DB.GetDataArrayList;
+import hanz.com.mymemo.DB.HandleData;
 import hanz.com.mymemo.addmemo.AddActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText search_data;
     private ListView memo_list;
     private List datas;
-
-    private List<MainMemo> memoResList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +41,15 @@ public class MainActivity extends AppCompatActivity {
         memo_list = (ListView) findViewById(R.id.memo_list);
         add_btn = (ImageView) findViewById(R.id.add_btn);
         search_data = (EditText) findViewById(R.id.serch_data);
+        search_data.setText("");
 
 //     获取数据
-        datas = new GetDataArrayList().getData(this);
+        datas = new HandleData().getData(this);
 
         MainAdapter adapter = new MainAdapter(this, datas);
         memo_list.setAdapter(adapter);
-//        添加功能
+
+//      添加功能
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,10 +75,11 @@ public class MainActivity extends AppCompatActivity {
             //            输入文本后的状态
             @Override
             public void afterTextChanged(Editable s) {
-                memoResList = new GetDataArrayList().getSearchMemoByKey(s.toString());
+                datas = new HandleData().getSearchMemoByKey(s.toString(), datas);
 
-                MainAdapter adapter = new MainAdapter(MainActivity.this, memoResList);
+                MainAdapter adapter = new MainAdapter(MainActivity.this, datas);
                 memo_list.setAdapter(adapter);
+                memo_list.invalidate();
             }
         });
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         memo_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, MemoItemActivity.class);
 //              获取点击的 item 信息
@@ -109,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         memo_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
-
 //              获取点击的 item 信息
                 MainMemo memo = (MainMemo) datas.get((int) id);
                 final int table_id = memo.getId();
@@ -121,9 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new GetDataArrayList().deleteData(MainActivity.this, table_id);
+                        new HandleData().deleteData(MainActivity.this, table_id);
 
                         Toast.makeText(getApplicationContext(), "删除成功！", Toast.LENGTH_SHORT).show();
+                        memo_list.invalidate();
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

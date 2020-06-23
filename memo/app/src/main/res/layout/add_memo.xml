@@ -20,7 +20,7 @@
             android:textColor="#000000"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:paddingStart="12dp"/>
+            android:paddingStart="12dp" />
 
         <ImageButton
             android:layout_width="60dp"
@@ -28,7 +28,7 @@
             android:id="@+id/complete_btn"
             android:src="@mipmap/save_icon"
             android:layout_alignParentRight="true"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical" />
 
     </RelativeLayout>
 
@@ -37,7 +37,7 @@
         android:layout_height="1dp"
         android:id="@+id/title_line"
         android:layout_below="@+id/data_title_layout"
-        android:background="#000000"/>
+        android:background="#000000" />
 
     <EditText
         android:layout_width="match_parent"
@@ -51,6 +51,6 @@
         android:hint="@string/date_content_hint"
         android:paddingStart="12dp"
         android:paddingTop="6dp"
-        android:textSize="24sp"/>
+        android:textSize="24sp" />
 
 </RelativeLayout>
