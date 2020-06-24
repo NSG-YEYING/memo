@@ -17,7 +17,7 @@ import hanz.com.mymemo.MainMemo;
 
 public class HandleData {
 
-    private List<MainMemo> datas;
+    private ArrayList<MainMemo> datas;
 
     private DBHelper dbHelper;
     private SQLiteDatabase db;
@@ -28,7 +28,7 @@ public class HandleData {
         db = dbHelper.getWritableDatabase();
     }
 
-    public List getData(Context context) {
+    public ArrayList getData(Context context) {
         initSQL(context);
         db = dbHelper.getReadableDatabase();
 
@@ -78,15 +78,15 @@ public class HandleData {
         Collections.reverse(datas);
 
         closeSQL();
-        return datas;
+        return  datas;
     }
 
-    public List deleteData(Context context, int id) {
+    public ArrayList deleteData(Context context, int id) {
         initSQL(context);
 
         db.delete("myTable", "id=?", new String[]{String.valueOf(id)});
 
-         List list = getData(context);
+         ArrayList list = getData(context);
         closeSQL();
 
         return list;
@@ -117,7 +117,7 @@ public class HandleData {
 
     public ArrayList<MainMemo> getSearchMemoByKey(String key, Context context) {
         ArrayList<MainMemo> list = new ArrayList<MainMemo>();
-        List datas = getData(context);
+        ArrayList datas = getData(context);
 
         for (int i = 0; i < datas.size(); i++) {
             MainMemo memo = (MainMemo) datas.get(i);
@@ -129,8 +129,6 @@ public class HandleData {
                 list.add(memo);
             }
         }
-
-        Log.d("getSearchMemoByKey: ", key);
 
         return list;
     }

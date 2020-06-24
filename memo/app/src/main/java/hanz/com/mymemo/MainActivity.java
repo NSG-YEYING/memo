@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hanz.com.mymemo.DB.HandleData;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView memo_list;
     private TextView change_theme_btn;
 
-    private List datas;
+    private ArrayList datas;
     private HandleData handleData;
     private static boolean nightTheme = false;
 
@@ -38,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        主题更改
         change();
-        setContentView(R.layout.activity_main);
+//        取消标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//      取消状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
 
         onStart();
     }
@@ -106,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
             //            输入文本后的状态
             @Override
             public void afterTextChanged(Editable s) {
-                Log.d("afterTextChanged: ", String.valueOf(s));
-
                 datas = handleData.getSearchMemoByKey(String.valueOf(s), MainActivity.this);
 
                 MainAdapter adapter = new MainAdapter(MainActivity.this, datas);
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 MainMemo memo = (MainMemo) datas.get(position);
                 final int table_id = memo.getId();
 //                dialog
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this, R.style.DIALOG_BG);
                 dialog.setTitle("注意");
                 dialog.setMessage("确定删除此条记录？");
                 dialog.setCancelable(false);
@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
+
                 dialog.show();
 
                 return true;
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void change() {
-        setTheme( nightTheme ? R.style.AppTheme_NIGHT : R.style.AppTheme) ;
+        setTheme(nightTheme ? R.style.AppTheme_NIGHT : R.style.AppTheme);
     }
 
 }
