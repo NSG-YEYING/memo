@@ -84,12 +84,4 @@ public class AddActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (db != null || db.isOpen()) {
-            db.close();
-        }
-    }
 }

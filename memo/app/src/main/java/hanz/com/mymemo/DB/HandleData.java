@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +30,7 @@ public class HandleData {
 
     public List getData(Context context) {
         initSQL(context);
+        db = dbHelper.getReadableDatabase();
 
         datas = new ArrayList<>();
         Cursor cursor = db.query(
@@ -51,13 +53,12 @@ public class HandleData {
             long time = cursor.getLong(cursor.getColumnIndex("data_create_time"));
 //          id
             int id = cursor.getInt(cursor.getColumnIndex("id"));
-            memo.setId(id);
 
 //           title
-            memo.setDataTitle(title);
             if (title == null) {
                 title = "";
             }
+            memo.setDataTitle(title);
 
 //          content
             if (content == null) {
@@ -66,6 +67,8 @@ public class HandleData {
             memo.setDataContent(content);
 //          time
             memo.setDataCreateTime(new Date(time));
+//          id
+            memo.setId(id);
 
             datas.add(memo);
         }
@@ -78,12 +81,15 @@ public class HandleData {
         return datas;
     }
 
-    public void deleteData(Context context, int id) {
+    public List deleteData(Context context, int id) {
         initSQL(context);
 
         db.delete("myTable", "id=?", new String[]{String.valueOf(id)});
 
+         List list = getData(context);
         closeSQL();
+
+        return list;
     }
 
     public void update(Context context, String newTitle, String newContent, int id) {
@@ -102,13 +108,16 @@ public class HandleData {
     }
 
     private void closeSQL() {
+        dbHelper = null;
+
         if (db != null || db.isOpen()) {
             db.close();
         }
     }
 
-    public ArrayList<MainMemo> getSearchMemoByKey(String key, List datas) {
+    public ArrayList<MainMemo> getSearchMemoByKey(String key, Context context) {
         ArrayList<MainMemo> list = new ArrayList<MainMemo>();
+        List datas = getData(context);
 
         for (int i = 0; i < datas.size(); i++) {
             MainMemo memo = (MainMemo) datas.get(i);
@@ -120,6 +129,8 @@ public class HandleData {
                 list.add(memo);
             }
         }
+
+        Log.d("getSearchMemoByKey: ", key);
 
         return list;
     }

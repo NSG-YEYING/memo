@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -24,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView add_btn;
     private EditText search_data;
     private ListView memo_list;
+
     private List datas;
+    private HandleData handleData;
+    private CharSequence temp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
         search_data = (EditText) findViewById(R.id.serch_data);
         search_data.setText("");
 
+        handleData = new HandleData();
+
 //     获取数据
-        datas = new HandleData().getData(this);
+        datas = handleData.getData(this);
 
         MainAdapter adapter = new MainAdapter(this, datas);
         memo_list.setAdapter(adapter);
@@ -69,13 +76,14 @@ public class MainActivity extends AppCompatActivity {
             //            输入文本中的状态
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             //            输入文本后的状态
             @Override
             public void afterTextChanged(Editable s) {
-                datas = new HandleData().getSearchMemoByKey(s.toString(), datas);
+                Log.d("afterTextChanged: ", String.valueOf(s));
+
+                datas = handleData.getSearchMemoByKey( String.valueOf(s), MainActivity.this);
 
                 MainAdapter adapter = new MainAdapter(MainActivity.this, datas);
                 memo_list.setAdapter(adapter);
@@ -91,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, MemoItemActivity.class);
 //              获取点击的 item 信息
-                MainMemo memo = (MainMemo) datas.get((int) id);
+                MainMemo memo = (MainMemo) datas.get(position);
 //                title
                 intent.putExtra("title", memo.getDataTitle());
 //              content
@@ -111,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
 //              获取点击的 item 信息
-                MainMemo memo = (MainMemo) datas.get((int) id);
+                MainMemo memo = (MainMemo) datas.get(position);
                 final int table_id = memo.getId();
 //                dialog
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -121,7 +129,8 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new HandleData().deleteData(MainActivity.this, table_id);
+                       datas = handleData.deleteData(MainActivity.this, table_id);
+                       memo_list.setAdapter(new MainAdapter(MainActivity.this, datas));
 
                         Toast.makeText(getApplicationContext(), "删除成功！", Toast.LENGTH_SHORT).show();
                         memo_list.invalidate();
