@@ -9,10 +9,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,16 +28,23 @@ public class MainActivity extends AppCompatActivity {
     private ImageView add_btn;
     private EditText search_data;
     private ListView memo_list;
+    private TextView change_theme_btn;
 
     private List datas;
     private HandleData handleData;
-    private CharSequence temp;
+    private static boolean defaultTheme = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        change();
         setContentView(R.layout.activity_main);
+
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         onStart();
     }
@@ -43,12 +53,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        change_theme_btn = (TextView) findViewById(R.id.change_theme_btn);
         memo_list = (ListView) findViewById(R.id.memo_list);
         add_btn = (ImageView) findViewById(R.id.add_btn);
         search_data = (EditText) findViewById(R.id.serch_data);
         search_data.setText("");
 
         handleData = new HandleData();
+
+//        theme change
+        change_theme_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//              change status
+                defaultTheme = !defaultTheme;
+                change();
+                Log.d(" defaultTheme", String.valueOf(defaultTheme));
+//              restart activity
+                recreate();
+            }
+        });
 
 //     获取数据
         datas = handleData.getData(this);
@@ -83,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 Log.d("afterTextChanged: ", String.valueOf(s));
 
-                datas = handleData.getSearchMemoByKey( String.valueOf(s), MainActivity.this);
+                datas = handleData.getSearchMemoByKey(String.valueOf(s), MainActivity.this);
 
                 MainAdapter adapter = new MainAdapter(MainActivity.this, datas);
                 memo_list.setAdapter(adapter);
@@ -129,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       datas = handleData.deleteData(MainActivity.this, table_id);
-                       memo_list.setAdapter(new MainAdapter(MainActivity.this, datas));
+                        datas = handleData.deleteData(MainActivity.this, table_id);
+                        memo_list.setAdapter(new MainAdapter(MainActivity.this, datas));
 
                         Toast.makeText(getApplicationContext(), "删除成功！", Toast.LENGTH_SHORT).show();
                         memo_list.invalidate();
@@ -147,7 +171,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 
+    private void change() {
+        if (defaultTheme){
+            setTheme(R.style.AppTheme_NIGHT);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+    }
 
 }
