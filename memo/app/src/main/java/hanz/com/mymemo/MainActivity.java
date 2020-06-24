@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List datas;
     private HandleData handleData;
-    private static boolean defaultTheme = true;
+    private static boolean nightTheme = false;
 
 
     @Override
@@ -66,9 +66,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //              change status
-                defaultTheme = !defaultTheme;
+                nightTheme = !nightTheme;
                 change();
-                Log.d(" defaultTheme", String.valueOf(defaultTheme));
 //              restart activity
                 recreate();
             }
@@ -85,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转添加页面
-                startActivity(new Intent(MainActivity.this, AddActivity.class));
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("nightTheme", nightTheme);
+                startActivity(intent);
             }
         });
 
@@ -175,11 +176,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void change() {
-        if (defaultTheme){
-            setTheme(R.style.AppTheme_NIGHT);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+        setTheme( nightTheme ? R.style.AppTheme_NIGHT : R.style.AppTheme) ;
     }
 
 }

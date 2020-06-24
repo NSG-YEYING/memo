@@ -29,6 +29,9 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        boolean nightTheme = getIntent().getBooleanExtra("nightTheme", false);
+        setTheme( nightTheme ? R.style.AppTheme_NIGHT : R.style.AppTheme) ;
         setContentView(R.layout.add_memo);
 
         init();
