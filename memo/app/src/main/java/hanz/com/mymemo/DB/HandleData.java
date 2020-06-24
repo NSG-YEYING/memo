@@ -4,13 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import hanz.com.mymemo.MainAdapter;
 import hanz.com.mymemo.MainMemo;
@@ -26,6 +25,35 @@ public class HandleData {
     private void initSQL(Context context) {
         dbHelper = new DBHelper(context, "mymemo", null, 1);
         db = dbHelper.getWritableDatabase();
+    }
+
+    public void addData(Context context, String title, String content) {
+        initSQL(context);
+        ContentValues values = new ContentValues();
+
+//        标题内容都为空
+        if (title.equals("") && content.equals("")) {
+            Toast.makeText(context, "标题与内容为空", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        values.put(
+                "data_title",
+                title
+        );
+        values.put(
+                "data_content",
+                content
+        );
+        values.put(
+                "data_create_time",
+                Calendar.getInstance().getTimeInMillis()
+        );
+
+        db.insert("myTable", null, values);
+
+        closeSQL();
     }
 
     public ArrayList getData(Context context) {
