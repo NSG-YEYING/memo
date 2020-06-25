@@ -22,11 +22,10 @@
             android:id="@+id/change_theme_btn"
             android:layout_width="50sp"
             android:layout_height="match_parent"
-            android:hint="@string/change_theme"
-            android:textSize="18sp"
-            android:textAlignment="center"
             android:gravity="center"
-            />
+            android:hint="@string/change_theme"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/add_btn"

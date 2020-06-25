@@ -58,7 +58,7 @@ public class HandleData {
 
     public ArrayList getData(Context context) {
         initSQL(context);
-        db = dbHelper.getReadableDatabase();
+//        db = dbHelper.getReadableDatabase();
 
         datas = new ArrayList<>();
         Cursor cursor = db.query(

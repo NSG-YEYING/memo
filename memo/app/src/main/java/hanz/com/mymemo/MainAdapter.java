@@ -54,23 +54,31 @@ public class MainAdapter extends BaseAdapter {
             viewHolder.dataTitle = (TextView) convertView.findViewById(R.id.data_title);
             viewHolder.dataContent = (TextView) convertView.findViewById(R.id.data_content);
             viewHolder.dataCreateTime = (TextView) convertView.findViewById(R.id.data_create_time);
-            //数据
-            MainMemo mainMemo = datas.get(position);
-            viewHolder.dataTitle.setText(mainMemo.getDataTitle());
-            //处理长度
-            String shortCut = mainMemo.getDataContent();
-            if (shortCut.length() > 10) {
-                shortCut = shortCut.substring(0, 10);
-            }
-            viewHolder.dataContent.setText(shortCut);
-            //转换日期 如果日期是当天，则显示当天日期，否则显示2020/11/10或2020/06/06
-            String dataStr = formatDate(mainMemo.getDataCreateTime());
-            viewHolder.dataCreateTime.setText(dataStr);
+
             convertView.setTag(viewHolder);
 
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        //数据
+        MainMemo mainMemo = datas.get(position);
+        String title = mainMemo.getDataTitle();
+        if (title == null) {
+            title = "";
+        }
+        viewHolder.dataTitle.setText(title);
+        //处理长度
+        String shortCut = mainMemo.getDataContent();
+        if (shortCut.length() > 10) {
+            shortCut = shortCut.substring(0, 10);
+        } else if (shortCut == null) {
+            shortCut = "";
+        }
+        viewHolder.dataContent.setText(shortCut);
+        //转换日期 如果日期是当天，则显示当天日期，否则显示2020/11/10或2020/06/06
+        String dataStr = formatDate(mainMemo.getDataCreateTime());
+        viewHolder.dataCreateTime.setText(dataStr);
 
         return convertView;
     }
