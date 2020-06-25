@@ -1,6 +1,5 @@
 package hanz.com.mymemo.addmemo;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import hanz.com.mymemo.DB.DBHelper;
 import hanz.com.mymemo.DB.HandleData;
 import hanz.com.mymemo.R;
 
@@ -18,15 +16,15 @@ public class AddActivity extends AppCompatActivity {
     private EditText data_content;
     private ImageButton complete_btn;
 
-    private SQLiteDatabase db;
-    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         boolean nightTheme = getIntent().getBooleanExtra("nightTheme", false);
         setTheme( nightTheme ? R.style.AppTheme_NIGHT : R.style.AppTheme) ;
+
         setContentView(R.layout.add_memo);
 
         init();

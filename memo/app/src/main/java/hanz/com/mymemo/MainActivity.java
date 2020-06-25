@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hanz.com.mymemo.DB.HandleData;
 import hanz.com.mymemo.addmemo.AddActivity;
@@ -72,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 change();
 //              restart activity
                 recreate();
+
             }
         });
 
@@ -134,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("time", time);
 //                table id
                 intent.putExtra("table_id", memo.getId());
+//               theme
+                intent.putExtra("nightTheme", nightTheme);
 
                 startActivity(intent);
             }

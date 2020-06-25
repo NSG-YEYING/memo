@@ -56,7 +56,6 @@ public class MainAdapter extends BaseAdapter {
             viewHolder.dataCreateTime = (TextView) convertView.findViewById(R.id.data_create_time);
 
             convertView.setTag(viewHolder);
-
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

@@ -16,6 +16,10 @@ public class MemoItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        boolean nightTheme = getIntent().getBooleanExtra("nightTheme", false);
+        setTheme( nightTheme ? R.style.AppTheme_NIGHT : R.style.AppTheme) ;
+
         setContentView(R.layout.activity_memo_item);
 
         init();

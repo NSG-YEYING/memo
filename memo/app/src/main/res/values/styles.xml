@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,13 +11,11 @@
     </style>
 
 
-    <style name="AppTheme_NIGHT" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme_NIGHT" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- activity 背景颜色 -->
         <item name="android:windowBackground">@color/night_black</item>
         <!--   字体颜色     -->
         <item name="android:textColor">@color/night_white</item>
-        <!--    主标题字体颜色    -->
-        <item name="android:textColorPrimary">@color/night_white</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
